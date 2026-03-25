@@ -83,7 +83,7 @@ filtered = filtered[filtered['Highest CTC (LPA)'] >= q3_ctc]
 # Filter by Sports
 if q2_sport:
     for sport in q2_sport:
-        filtered = filtered[filtered[branch] == "Yes"]
+        filtered = filtered[filtered[sport] == "Yes"]
 
 # Filter by Multiple Branches (The 'AND' logic)
 if q4_branches:
