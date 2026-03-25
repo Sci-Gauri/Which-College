@@ -57,10 +57,11 @@ st.subheader("Choose Your Preferences")
 
 # Q1: Cities (Multiple)
 all_cities = list(df['City'].unique())
-q1_cities = st.multiselect("Q1: Which Cities are you considering?", options=all_cities, default=all_cities)
+q1_cities = st.multiselect("Q1: Which Cities are you considering?", options=all_cities)
 
 # Q2: Sports
-q2_sport = st.radio("Q2: Preferred Sports Facility?", ["No Preference", "Cricket", "Football"])
+all_sports = ["Cricket","Football"]
+q2_sport = st.multiselect("Q2: Preferred Sports Facility?", options=all_sports)
 
 # Q3: CTC
 q3_ctc = st.select_slider("Q3: Minimum Highest CTC (LPA)?", 
