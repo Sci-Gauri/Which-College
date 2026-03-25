@@ -12,7 +12,7 @@ st.markdown("""
     h1, h2, h3 { color: #FFD700 !important; }
     p { color: white !important; }
     </style>
-    """, unsafe_allow_input=True)
+    """, unsafe_allow_html=True)
 
 st.title("🛡️ Bias-Free College Finder")
 st.write("### 2 Years of Knowledge. 5 Days to Build. 0 Hidden Commissions.")
