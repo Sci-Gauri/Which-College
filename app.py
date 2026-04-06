@@ -69,39 +69,30 @@ col1, col2, col3 = st.columns(3)
 with col1:
     st.markdown("""
     ### 🚫 No Commissions
-    Edli doesn't take 'referral fees' from colleges. Our data is pure and unbought.
+    Edli doesn't take referral fees from colleges. Our data is pure and unbought.
     """)
 with col2:
     st.markdown("""
     ### 📊 Real ROI
-    We prioritize placements and fees over marketing brochures and expensive campuses.
+    We prioritise placements and fees over marketing brochures and expensive campuses.
     """)
 with col3:
     st.markdown("""
-    ### 🛰️ Deep-Tech
-    Utilizing Geospatial-AI to understand urban trends and college accessibility.
+    ### 🤝 Extended Support
+    Edli subscription helps you to apply to your dream college easily.
     """)
 
 st.divider()
 
 # 4. THE POC (Proof of Concept)
-st.write("## 🛠️ Proof of Concept (Live Demo)")
-st.write("Try the logic I built during my 100-hour sprint.")
+st.write("## 🛠️ Proof of Concept )")
+st.write("Try the logic I built during my 24-hour sprint from knowing nothing about websites to deploying one myself")
 
 # Load Data (The same engine, but cleaner UI)
 @st.cache_data
 def get_data():
-    try:
-        df = pd.read_csv('colleges.csv')
+    df = pd.read_csv('colleges.csv')
         return df
-    except:
-        # Fallback if file isn't uploaded yet
-        return pd.DataFrame({
-            "College Name": ["Sample IIT", "Sample NIT"],
-            "City": ["Delhi", "Mumbai"],
-            "Highest CTC (LPA)": [120, 80],
-            "CSE": ["Yes", "Yes"]
-        })
 
 df = get_data()
 
@@ -112,15 +103,15 @@ with st.container():
     
     with c1:
         st.write("### Filter Logic")
-        city_input = st.multiselect("Target Cities", options=df['City'].unique(), default=df['City'].unique())
+        city_input = st.multiselect("Target Cities", options=df['City'].unique())
         min_ctc = st.slider("Min Placement (LPA)", 0, 200, 20)
-        only_cse = st.toggle("Only with CSE")
+        CS_Mandatory = st.toggle("Only with CSE")
     
     with c2:
         # Filtering Logic
         res = df[df['City'].isin(city_input)]
         res = res[res['Highest CTC (LPA)'] >= min_ctc]
-        if only_cse:
+        if CS_Mandatory:
             res = res[res['CSE'] == "Yes"]
             
         st.write(f"### Found {len(res)} matches")
@@ -131,67 +122,6 @@ with st.container():
 # 5. FOOTER
 st.write("")
 st.write("---")
-st.caption("Built in public by an 18-year-old founder. Edli is 100% independent.")
+st.caption("Built in public by an 18-year-old non-tech founder. Edli is 100% independent.")
 
-# 2. DATA LOADING (IP Syllabus: Unit 1)
-# @st.cache_data
-def load_and_clean():
-    df = pd.read_csv('colleges.csv')
-    # Normalizing binary data for the logic
-    cols = ['Cricket', 'Football', 'Aerospace', 'CSE', 'ECE']
-    for c in cols:
-        df[c] = df[c].astype(str).str.strip().str.capitalize()
-    return df
 
-df = load_and_clean()
-
-# 3. THE 4-QUESTION FLOW (Updated for Multi-Choice)
-st.subheader("Choose Your Preferences")
-
-# Q1: Cities (Multiple)
-all_cities = list(df['City'].unique())
-q1_cities = st.multiselect("Q1: Which Cities are you considering?", options=all_cities)
-
-# Q2: Sports
-all_sports = ["Cricket","Football"]
-q2_sport = st.multiselect("Q2: Preferred Sports Facility?", options=all_sports)
-
-# Q3: CTC
-q3_ctc = st.select_slider("Q3: Minimum Highest CTC (LPA)?", 
-                         options=[0, 10, 20, 30, 40, 50, 100, 200], value=10)
-
-# Q4: Branches (Multiple)
-available_branches = ["CSE", "ECE", "Aerospace"]
-q4_branches = st.multiselect("Q4: Which branches are you interested in?", options=available_branches)
-
-# 4. THE UPDATED FILTERING LOGIC (IP Syllabus: .isin() and All-Match)
-filtered = df.copy()
-
-# Filter by Multiple Cities
-filtered = filtered[filtered['City'].isin(q1_cities)]
-
-# Filter by Minimum CTC
-filtered = filtered[filtered['Highest CTC (LPA)'] >= q3_ctc]
-
-# Filter by Sports
-if q2_sport:
-    for sport in q2_sport:
-        filtered = filtered[filtered[sport] == "Yes"]
-
-# Filter by Multiple Branches (The 'AND' logic)
-if q4_branches:
-    for branch in q4_branches:
-        filtered = filtered[filtered[branch] == "Yes"]
-
-# 5. THE REVEAL
-st.divider()
-st.subheader("🎯 Recommended Colleges")
-
-if not filtered.empty:
-    # Displaying selected columns for a clean look
-    display_cols = ['College Name', 'City', 'Highest CTC (LPA)']
-    st.table(filtered[display_cols].sort_values(by='Highest CTC (LPA)', ascending=False))
-else:
-    st.error("No colleges match all your criteria. Try lowering the CTC or changing the city.")
-
-st.info("Note: This data is sourced directly to bypass agent commissions.")
