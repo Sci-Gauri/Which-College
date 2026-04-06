@@ -91,7 +91,7 @@ with st.container():
         st.write("### Filter Logic")
         city_input = st.multiselect("Target Cities", options=df['City'].unique())
         min_ctc = st.slider("Min Placement (LPA)", 0, 200, 20)
-        CS_Mandatory = st.toggle("Only with CSE")
+        CS_Mandatory = st.toggle("With CSE")
     
     with c2:
         # Filtering Logic
