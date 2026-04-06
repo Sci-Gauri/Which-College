@@ -57,7 +57,7 @@ st.markdown("""
     </div>
     """, unsafe_allow_html=True)
 
-st.write("## 🚀 The Vision")
+st.write("## The Vision")
 col1, col2, col3 = st.columns(3)
 
 with col1:
@@ -78,7 +78,7 @@ with col3:
 
 st.divider()
 
-st.write("## 🛠️ Proof of Concept )")
+st.write("## Proof of Concept")
 st.write("Try the logic I built during my 24-hour sprint from knowing nothing about websites to deploying one myself")
 
 df = pd.read_csv('colleges.csv')
